@@ -217,15 +217,16 @@ class Basic_model:
             SGD: dict(lr=1e-3, momentum=0, dampening=0, weight_decay=0, nesterov=False)
             Adam: dict(lr=1e-3, betas=(0.9, 0.999), eps=1e-8, weight_decay=0, amsgrad=False)
         '''
-        if method in ('L-BFGS', 'LBFGS', 'BFGS'):
+        method = method.lower()
+        if method in ('l-bfgs', 'lbfgs', 'bfgs'):
             params = dict(lr=1.0, max_iter=1000, max_eval=10000, history_size=100,
                           tolerance_grad=1e-8, tolerance_change=1e-15, line_search_fn='strong_wolfe')
             func = pt.optim.LBFGS
-        elif method == 'SGD':
+        elif method == 'sgd':
             params = dict(lr=1e-3, momentum=0, dampening=0,
                           weight_decay=0, nesterov=False)
             func = pt.optim.SGD
-        elif method == 'Adam':
+        elif method == 'adam':
             params = dict(lr=1e-3, betas=(0.9, 0.999), eps=1e-8,
                           weight_decay=0, amsgrad=False)
             func = pt.optim.Adam
